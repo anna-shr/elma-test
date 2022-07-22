@@ -4,13 +4,10 @@ let DATA_TASKS = [];
 let DATA_USERS = [];
 let USERS_WITH_TASK = [];
 let TASK_WITHOUT_USERS = [];
-
 let dates = document.querySelector('.table__head');
 let tbody = document.querySelector('.table__body');
 let backlog = document.querySelector('.backlog__body');
-
 let d = new Date();
-
 
 fetch(URL_USERS).then(i => i.json()).then(i => {
     DATA_USERS = i;
@@ -18,13 +15,6 @@ fetch(URL_USERS).then(i => i.json()).then(i => {
 fetch(URL_TASKS).then(i => i.json()).then(i => {
     DATA_TASKS = i, filterTask(DATA_USERS, DATA_TASKS)
 });
-
-
-// Promise.all([
-//     fetch('URL_USERS').then(i => i.json()).then(i => {DATA_USERS = i;}),
-//     fetch('URL_TASKS').then(i => i.json()).then(i => {DATA_TASKS = i;})
-//   ]).then(filterTask(DATA_USERS, DATA_TASKS));
-
 
 function filterTask(arrUser, arrTask) {
     for (let i = 0; i < arrUser.length; i++) {
@@ -128,9 +118,6 @@ document.querySelector("input[type=\"text\"]").oninput = function () {
     }
 }
 
-const left = document.querySelector('.left'); //левая кнопка
-const right = document.querySelector('.right'); //правая кнопка
-
 let DAY_MILSEC = 24 * 60 * 60 * 1000;
 let today = new Date().getTime();
 
@@ -144,10 +131,6 @@ function getDay(date) {
     let days = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
     return date.getDate() + " " + days[date.getDay()];
 }
-
-
-
-
 
 function dragAndDrop() {
     let items1 = document.querySelectorAll(".backlog__body th");
@@ -172,7 +155,6 @@ function dragAndDrop() {
     tbody.addEventListener(`drop`, (evt) => {
         let activeElement = backlog.querySelector(`.selected`);
         let currentElement = evt.target.closest('th');
-
         if (evt.target.classList.contains('name')) {
             let ths = document.querySelectorAll('.table__body th');
             let id = evt.target.getAttribute('id');
@@ -185,7 +167,6 @@ function dragAndDrop() {
             }
         } else {
             evt.target.closest('th').innerHTML += activeElement.innerHTML;
-            //console.log(evt.target);
         }
         currentElement.classList.remove(`hovered`);
         activeElement.classList.add('hide');
